@@ -51,6 +51,7 @@ class HoverboardAPI
     void sendEnable(uint8_t newEnable, char som = PROTOCOL_SOM_ACK);
     void sendBuzzer(uint8_t buzzerFreq = 4, uint8_t buzzerPattern = 0, uint16_t buzzerLen = 100, char som = PROTOCOL_SOM_NOACK);
     void sendCounterReset(char som = PROTOCOL_SOM_ACK);
+    void disablePoweroffTimer(char som = PROTOCOL_SOM_ACK);
 
     float getBatteryVoltage();
     float getMotorAmpsAvg(uint8_t motor);
