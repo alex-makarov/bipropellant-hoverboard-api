@@ -383,6 +383,27 @@ void HoverboardAPI::sendEnable(uint8_t newEnable, char som)
 }
 
 /***************************************************************************
+ * Disable poweroff timer
+ ***************************************************************************/
+void HoverboardAPI::disablePoweroffTimer(char som) {
+  // Compose new Message
+  PROTOCOL_MSG2 msg = {
+    .SOM = som,
+  };
+
+  // Prepare Message structure to write buzzer values.
+  PROTOCOL_BYTES_WRITEVALS *writevals = (PROTOCOL_BYTES_WRITEVALS *) &(msg.bytes);
+  uint8_t *disable = (uint8_t *) writevals->content;
+
+  writevals->cmd  = PROTOCOL_CMD_WRITEVAL;  // Write value
+  writevals->code = Codes::disablePoweroff;
+  *disable = 1;
+
+  msg.len = sizeof(writevals->cmd) + sizeof(writevals->code) + sizeof(*disable);
+  protocol_post(&s, &msg);
+}
+
+/***************************************************************************
  * Reset statistic counters
  ***************************************************************************/
 void HoverboardAPI::sendCounterReset(char som)
